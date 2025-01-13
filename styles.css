@@ -58,7 +58,7 @@
     height: 156px
 }
 
-.num-btn {
+.num-btn, .dot-btn {
     font-weight: bold;
     font-size: 26px;
     border-radius: 20px;
