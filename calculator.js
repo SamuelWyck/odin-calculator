@@ -35,6 +35,12 @@ function handleClickEvent(event) {
     } else if (event.target.matches(".paren")) {
         appendParen(event.target);
         updateScreen();
+    } else if (event.target.matches(".del-btn")) {
+        popSymbol();
+        updateScreen();
+    } else if (event.target.matches(".reset-btn")) {
+        resetExpression();
+        updateScreen();
     }
 }
 
@@ -113,6 +119,21 @@ function appendParen(element) {
         activeExpression.push(parenSymbol);
     } else {
         activeExpression.push(parenSymbol);
+    }
+}
+
+
+function popSymbol() {
+    if (activeExpression.length === 0) {
+        return;
+    }
+
+    let topSymbol = activeExpression.pop();
+    if (!operators.has(topSymbol) && topSymbol.length > 1) {
+        topSymbol = topSymbol.slice(0, topSymbol.length - 1);
+        if (topSymbol.length > 0) {
+            activeExpression.push(topSymbol);
+        }
     }
 }
 
