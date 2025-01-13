@@ -27,7 +27,13 @@ function handleClickEvent(event) {
             updateScreen();
         }
     } else if (event.target.matches(".negative")) {
-        handleSubtraction(event.target);
+        handleSubtraction();
+        updateScreen();
+    } else if (event.target.matches(".func")) {
+        appendFunction(event.target)
+        updateScreen();
+    } else if (event.target.matches(".paren")) {
+        appendParen(event.target);
         updateScreen();
     }
 }
@@ -43,7 +49,7 @@ function appendDigit(element) {
         if (topPeek === ")") {
             insertImpliedMultiplication();
             activeExpression.push(digit);
-        } else if (operators.has(topPeek) || functions.has(topPeek)) {
+        } else if (operators.has(topPeek) || functions.has(topPeek) || topPeek === "(") {
             activeExpression.push(digit);
         } else {
             let num = activeExpression.pop()
@@ -64,7 +70,7 @@ function appendOperator(element) {
 }
 
 
-function handleSubtraction(element) {
+function handleSubtraction() {
     if (activeExpression.length === 0) {
         activeExpression.push("-");
     } else {
@@ -74,6 +80,39 @@ function handleSubtraction(element) {
         } else {
             activeExpression.push(" - ");
         }
+    }
+}
+
+
+function appendFunction(element) {
+    const functionSymbol = element.dataset.symbol;
+    const topPeek = activeExpression[activeExpression.length - 1];
+
+    if (activeExpression.length === 0) {
+        activeExpression.push(functionSymbol);
+        return;
+    }
+    if (topPeek === ")" || (!operators.has(topPeek) && !functions.has(topPeek))) {
+        insertImpliedMultiplication();
+    }
+    activeExpression.push(functionSymbol);
+}
+
+
+function appendParen(element) {
+    const parenSymbol = element.dataset.symbol;
+    if (parenSymbol === "(") {
+        if (activeExpression.length === 0) {
+            activeExpression.push(parenSymbol);
+            return;
+        }
+        const topPeek = activeExpression[activeExpression.length - 1];
+        if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
+            insertImpliedMultiplication();
+        }
+        activeExpression.push(parenSymbol);
+    } else {
+        activeExpression.push(parenSymbol);
     }
 }
 
