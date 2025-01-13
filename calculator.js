@@ -138,6 +138,11 @@ function popSymbol() {
 }
 
 
+function resetExpression() {
+    activeExpression = [];
+}
+
+
 function insertImpliedMultiplication() {
     activeExpression.push(" * ");
 }
