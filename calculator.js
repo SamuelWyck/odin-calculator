@@ -41,6 +41,10 @@ function handleClickEvent(event) {
     } else if (event.target.matches(".reset-btn")) {
         resetExpression();
         updateScreen();
+    } else if (event.target.matches(".prev-answer-btn")) {
+        if (appendPrevAnswer()) {
+            updateScreen();
+        }
     }
 }
 
@@ -140,6 +144,15 @@ function popSymbol() {
 
 function resetExpression() {
     activeExpression = [];
+}
+
+
+function appendPrevAnswer() {
+    if (prevAnswer === null) {
+        return false;
+    }
+    activeExpression.push(String(prevAnswer));
+    return true;
 }
 
 
