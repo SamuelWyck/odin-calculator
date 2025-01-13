@@ -8,7 +8,7 @@
 }
 
 .main-container {
-    margin-top: 50px;
+    margin-top: 20px;
     display: flex;
     height: 90vh;
     justify-content: center;
@@ -20,43 +20,30 @@
 }
 
 .cal-screen {
-    width: 400px;
-    height: 200px;
+    width: 448px;
+    height: 150px;
 }
 
 .cal-buttons {
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
-    gap: 10px;
-}
-
-.main-buttons {
-    display: flex;
-    flex-grow: 4;
-    flex-shrink: 4;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
     gap: 12px;
     flex-wrap: wrap;
+    height: 500px;
+    width: 448px;
 }
 
-.side-buttons {
-    display: flex;
-    flex-grow: 1;
-    flex-shrink: 1;
-    gap: 10px;
-    flex-wrap: wrap;
-}
 
 .flex-btn-main {
-    flex-basis: 22%;
-    flex-grow: 1;
-    /* box-sizing: border-box; */
+    width: 80px;
+    height: 72px;
     flex-shrink: 1;
-    aspect-ratio: 1/1;
 }
 
-.flex-btn-side {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: 50%;
-    aspect-ratio: 1/1;
+.equal-btn {
+    height: 156px
 }
