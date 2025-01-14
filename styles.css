@@ -30,9 +30,14 @@
     border-radius: 20px;
     font-size: 60px;
     font-weight: 600;
-    display: flex;
+    /* display: flex;
     justify-content: flex-end;
-    align-items: flex-end;
+    align-items: flex-end; */
+    text-align: end;
+}
+
+.upper-screen {
+    height: 50%;
 }
 
 .cal-buttons {

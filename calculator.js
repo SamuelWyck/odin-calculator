@@ -1,4 +1,5 @@
-const screen = document.querySelector(".cal-screen");
+const lowerScreen = document.querySelector(".lower-screen");
+const upperScreen = document.querySelector(".upper-screen");
 const btnDiv = document.querySelector(".cal-buttons");
 const degBtn = document.querySelector(".deg-btn");
 const radBtn = document.querySelector(".rad-btn");
@@ -70,15 +71,22 @@ function calculateExpression() {
 
     substituteAnsPlaceholder();
     let infixExpression = activeExpression.join("");
-    let postFixArray = shuntingConversion.convert(infixExpression);
     
     try {
+        let postFixArray = shuntingConversion.convert(infixExpression);
         let answerArray = postFixEval.evaluate(postFixArray, degrees);
-        prevAnswer = String(answerArray[0]);
-        displayAnswer(answerArray);
+        let answer = String(answerArray[0]);
+        prevAnswer = answer;
+        displayAnswer(answer);
+        updateScreen(false);
     } catch (err) {
         handleError(err);
     }
+}
+
+
+function handleError(error) {
+    console.log(error)
 }
 
 
@@ -92,10 +100,9 @@ function substituteAnsPlaceholder() {
 }
 
 
-function displayAnswer(answerArray) {
+function displayAnswer(answer) {
     activeExpression = [];
-    const answer = answerArray[0];
-    screen.textContent = answer;
+    upperScreen.textContent = answer;
 }
 
 
@@ -120,7 +127,7 @@ function appendDigit(element) {
 
     } else {
         const topPeek = activeExpression[activeExpression.length - 1];
-        if (topPeek === ")") {
+        if (topPeek === ")" || topPeek === "Ans") {
             insertImpliedMultiplication();
             activeExpression.push(digit);
         } else if (operators.has(topPeek) || functions.has(topPeek) || topPeek === "(") {
@@ -197,7 +204,7 @@ function popSymbol() {
     }
 
     let topSymbol = activeExpression.pop();
-    if (!operators.has(topSymbol) && topSymbol.length > 1) {
+    if (!operators.has(topSymbol) && topSymbol.length > 1 && topSymbol !== "Ans") {
         topSymbol = topSymbol.slice(0, topSymbol.length - 1);
         if (topSymbol.length > 0) {
             activeExpression.push(topSymbol);
@@ -233,7 +240,7 @@ function insertImpliedMultiplication() {
 }
 
 
-function updateScreen() {
+function updateScreen(clearUpper=true) {
     humanReadAble = [];
 
     for (let i = 0; i < activeExpression.length; i += 1) {
@@ -250,7 +257,10 @@ function updateScreen() {
     } else {
         readableString = "0";
     }
-    screen.textContent = readableString;
+    lowerScreen.textContent = readableString;
+    if (clearUpper) {
+        upperScreen.textContent = "";
+    }
 }
 
 
@@ -471,6 +481,9 @@ function PostFixEval() {
 
     this.handleLog = function(operandStack) {
         let operand = Number(operandStack.pop());
+        if (operand <= 0) {
+            throw "Undefined"
+        }
         let result = Math.log10(operand);
         operandStack.push(result);
     }
@@ -488,6 +501,9 @@ function PostFixEval() {
 
     this.handleTangent = function(operandStack) {
         let angle = Number(operandStack.pop());
+        if ((angle === 90 || angle === -90) && this.degrees) {
+           throw "Undefined"; 
+        }
         if (this.degrees) {
             angle = this.toRadians(angle);
         }
@@ -541,7 +557,9 @@ function PostFixEval() {
     this.handleDivision = function(operandStack) {
         let rightSide = Number(operandStack.pop());
         let leftSide = Number(operandStack.pop());
-
+        if (rightSide === 0) {
+            throw "Division by zero"
+        }
         let result = leftSide / rightSide;
         operandStack.push(result);
     }
