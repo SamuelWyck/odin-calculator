@@ -264,6 +264,11 @@ function updateScreen(clearUpper=true) {
     } else {
         readableString = "0";
     }
+    if (readableString.length > 12) {//might get rid of this
+        let maxLength = readableString.length;
+        let startIdx = maxLength - 12;
+        readableString = readableString.slice(startIdx);
+    }
     lowerScreen.textContent = readableString;
     if (clearUpper) {
         upperScreen.textContent = "";
