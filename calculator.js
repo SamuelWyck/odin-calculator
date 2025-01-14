@@ -15,6 +15,7 @@ let functions = new Set(
 );
 
 let shuntingConversion = new ShuntingConversion();
+let postFixEval = new PostFixEval();
 
 
 btnDiv.addEventListener("click", function (e) {
@@ -56,10 +57,22 @@ function handleClickEvent(event) {
     } else if (event.target.matches(".rad-btn")) {
         changeAngleUnits(event.target);
     } else if (event.target.matches(".equal-btn")) {
-
+        calculateExpression();
     }
 }
 
+
+
+function calculateExpression() {
+    let infixExpression = activeExpression.join("");
+    let postFixArray = shuntingConversion.convert(infixExpression);
+    
+    try {
+        let answerArray = postFixEval.evaluate(postFixArray, degrees);
+    } catch (err) {
+        handleError(err);
+    }
+}
 
 
 function changeAngleUnits(element) {
@@ -177,6 +190,10 @@ function resetExpression() {
 function appendPrevAnswer() {
     if (prevAnswer === null) {
         return false;
+    }
+    const topPeek = activeExpression[activeExpression.length - 1];
+    if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
+        insertImpliedMultiplication();
     }
     activeExpression.push(String(prevAnswer));
     return true;
