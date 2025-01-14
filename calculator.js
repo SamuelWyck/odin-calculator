@@ -67,15 +67,27 @@ function calculateExpression() {
     if (activeExpression.length === 0) {
         return;
     }
+
+    substituteAnsPlaceholder();
     let infixExpression = activeExpression.join("");
     let postFixArray = shuntingConversion.convert(infixExpression);
     
     try {
         let answerArray = postFixEval.evaluate(postFixArray, degrees);
-        prevAnswer = answerArray[0];
+        prevAnswer = String(answerArray[0]);
         displayAnswer(answerArray);
     } catch (err) {
         handleError(err);
+    }
+}
+
+
+function substituteAnsPlaceholder() {
+    for (let i = 0; i < activeExpression.length; i += 1) {
+        let currentSymbol = activeExpression[i];
+        if (currentSymbol === "Ans") {
+            activeExpression[i] = prevAnswer;
+        }
     }
 }
 
@@ -204,14 +216,14 @@ function appendPrevAnswer() {
         return false;
     }
     if (activeExpression.length === 0) {
-        activeExpression.push(String(prevAnswer));
+        activeExpression.push("Ans");
         return true;
     }
     const topPeek = activeExpression[activeExpression.length - 1];
     if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
         insertImpliedMultiplication();
     }
-    activeExpression.push(String(prevAnswer));
+    activeExpression.push("Ans");
     return true;
 }
 
