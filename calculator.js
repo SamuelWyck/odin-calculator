@@ -125,7 +125,7 @@ function handleSubtraction() {
         activeExpression.push("-");
     } else {
         const topPeek = activeExpression[activeExpression.length - 1];
-        if (operators.has(topPeek) || functions.has(topPeek)) {
+        if (operators.has(topPeek) || functions.has(topPeek) || topPeek === "(") {
             activeExpression.push("-");
         } else {
             activeExpression.push(" - ");
