@@ -38,6 +38,13 @@
 
 .upper-screen {
     height: 50%;
+    font-size: 50px;
+}
+
+.upper-screen, .lower-screen {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .cal-buttons {
