@@ -64,6 +64,9 @@ function handleClickEvent(event) {
 
 
 function calculateExpression() {
+    if (activeExpression.length === 0) {
+        return;
+    }
     let infixExpression = activeExpression.join("");
     let postFixArray = shuntingConversion.convert(infixExpression);
     
