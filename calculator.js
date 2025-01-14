@@ -69,9 +69,18 @@ function calculateExpression() {
     
     try {
         let answerArray = postFixEval.evaluate(postFixArray, degrees);
+        prevAnswer = answerArray[0];
+        displayAnswer(answerArray);
     } catch (err) {
         handleError(err);
     }
+}
+
+
+function displayAnswer(answerArray) {
+    activeExpression = [];
+    const answer = answerArray[0];
+    screen.textContent = answer;
 }
 
 
@@ -190,6 +199,10 @@ function resetExpression() {
 function appendPrevAnswer() {
     if (prevAnswer === null) {
         return false;
+    }
+    if (activeExpression.length === 0) {
+        activeExpression.push(String(prevAnswer));
+        return true;
     }
     const topPeek = activeExpression[activeExpression.length - 1];
     if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
