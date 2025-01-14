@@ -283,15 +283,15 @@ function PostFixEval() {
 
 
 
-let shuntingConversion = new ShuntingConversion();
-let postFixEval = new PostFixEval();
+// let shuntingConversion = new ShuntingConversion();
+// let postFixEval = new PostFixEval();
 
-let ex = "C(3.3 + 4) * 5) - 1";
+// let ex = "C(3.3 + 4) * 5) - 1";
 
-let result = shuntingConversion.convert(ex);
+// let result = shuntingConversion.convert(ex);
 
-console.log(result);
+// console.log(result);
 
-console.log(postFixEval.evaluate(result));
+// console.log(postFixEval.evaluate(result));
 
 
