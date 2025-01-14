@@ -76,6 +76,9 @@ function calculateExpression() {
         let postFixArray = shuntingConversion.convert(infixExpression);
         let answerArray = postFixEval.evaluate(postFixArray, degrees);
         let answer = String(answerArray[0]);
+        if (isNaN(answer)) {
+            throw "Syntax error";
+        }
         prevAnswer = answer;
         displayAnswer(answer);
         updateScreen(false);
@@ -86,7 +89,11 @@ function calculateExpression() {
 
 
 function handleError(error) {
-    console.log(error)
+    if (typeof error === "string") {
+        upperScreen.textContent = error;
+    } else {
+        upperScreen.textContent = "Syntax error";
+    }
 }
 
 
@@ -558,7 +565,7 @@ function PostFixEval() {
         let rightSide = Number(operandStack.pop());
         let leftSide = Number(operandStack.pop());
         if (rightSide === 0) {
-            throw "Division by zero"
+            throw "Division by zero";
         }
         let result = leftSide / rightSide;
         operandStack.push(result);
