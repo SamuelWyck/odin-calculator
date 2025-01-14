@@ -1,12 +1,16 @@
 const screen = document.querySelector(".cal-screen");
 const btnDiv = document.querySelector(".cal-buttons");
+const degBtn = document.querySelector(".deg-btn");
+const radBtn = document.querySelector(".rad-btn");
 
-activeExpression = []
-prevAnswer = null;
-operators = new Set(
+
+let degrees = true; 
+let activeExpression = [];
+let prevAnswer = null;
+let operators = new Set(
     [" * ", " / ", " + ", " - ", " ^ "]
 );
-functions = new Set(
+let functions = new Set(
     ["L", "S", "C", "T"]
 );
 
@@ -45,6 +49,25 @@ function handleClickEvent(event) {
         if (appendPrevAnswer()) {
             updateScreen();
         }
+    } else if (event.target.matches(".deg-btn")) {
+        changeAngleUnits(event.target);
+    } else if (event.target.matches(".rad-btn")) {
+        changeAngleUnits(event.target);
+    }
+}
+
+
+
+function changeAngleUnits(element) {
+    const btnType = element.dataset.type;
+    if (btnType === "rad" && degrees) {
+        degrees = false;
+        radBtn.classList.toggle("active-btn");
+        degBtn.classList.toggle("active-btn");
+    } else if (btnType === "deg" && !degrees) {
+        degrees = true;
+        radBtn.classList.toggle("active-btn");
+        degBtn.classList.toggle("active-btn");
     }
 }
 

@@ -59,8 +59,12 @@
     height: 156px
 }
 
-.num-btn, .dot-btn {
+.num-btn {
     font-weight: bold;
     font-size: 26px;
     border-radius: 20px;
+}
+
+.active-btn {
+    background-color: red;
 }
