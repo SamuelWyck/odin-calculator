@@ -137,8 +137,9 @@ function formatDecimal(answer) {
     const splitAnswer = answer.split(".");
     let intSide = splitAnswer[0];
     let decimalSide = splitAnswer[1];
+    let testAnswerStr = numAnswer.toString();
     
-    let firstDigit = (numAnswer < 0) ? answer[1] : answer[0];
+    let firstDigit = (numAnswer < 0) ? testAnswerStr[1] : testAnswerStr[0];
     if (firstDigit === "0") {
         if (numAnswer < 0) {
             return numAnswer.toFixed(12);
