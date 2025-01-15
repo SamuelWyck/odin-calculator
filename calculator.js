@@ -94,6 +94,7 @@ function handleError(error) {
         upperScreen.textContent = error;
     } else {
         upperScreen.textContent = "Syntax error";
+        // console.log(error.message)
     }
 }
 
@@ -116,30 +117,65 @@ function displayAnswer(answer) {
 
 
 function formatAnswer(answer) {
-    let numAnswer = Number(answer);
     let formattedAnswer;
     let decimalPointIndex = answer.indexOf(".");
     if (decimalPointIndex === -1) {
-        formattedAnswer = formatInteger(numAnswer);
-    } else if (decimalPointIndex === 0) {
-
+        formattedAnswer = formatInteger(answer);
     } else {
-
+        formattedAnswer = formatDecimal(answer);
     }
     return formattedAnswer;
 }
 
 
-function formatInteger(integer) {
-    const isNegative = (integer < 0) ? true : false;
-    let maxLength = (isNegative) ? maxDisplayAnswerLength + 1 : maxDisplayAnswerLength;
+function formatDecimal(answer) {
+    let numAnswer = Number(answer);
+    if (answer.length <= maxDisplayAnswerLength + 1) {
+        return Number(answer);
+    }
+
+    const splitAnswer = answer.split(".");
+    let intSide = splitAnswer[0];
+    let decimalSide = splitAnswer[1];
     
-    if (integer.toString().length <= maxLength) {
+    let firstDigit = (numAnswer < 0) ? answer[1] : answer[0];
+    if (firstDigit === "0") {
+        if (numAnswer < 0) {
+            return numAnswer.toFixed(12);
+        } else {
+            return numAnswer.toFixed(13);
+        }
+        
+    } else {
+        let intSideLength = intSide.length;
+        let decimalSideLength = decimalSide.length;
+
+        if (intSideLength > maxDisplayAnswerLength) {
+            const decimalPlaces = 7
+            return Number(intSide).toExponential(decimalPlaces);
+        } else if (intSideLength === maxDisplayAnswerLength) {
+            intSide = Number(intSide);
+            if (intSide.toString().length === maxDisplayAnswerLength) {
+                return intSide;
+            }
+            intSide = new String(intSide);
+            intSideLength = intSide.length
+        }
+
+        //add logic for case where intside is less than max and not zero
+    }
+}
+
+
+function formatInteger(answer) {
+    let integer = Number(answer);
+    console.log(integer);
+    if (integer.toString().length <= maxDisplayAnswerLength) {
         return integer;
     }
 
-    let expoInteger = integer.toExponential(7);
-    return expoInteger;
+    const decimalPlaces = 7
+    return integer.toExponential(decimalPlaces);
 }
 
 
