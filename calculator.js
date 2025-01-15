@@ -5,6 +5,7 @@ const degBtn = document.querySelector(".deg-btn");
 const radBtn = document.querySelector(".rad-btn");
 
 
+const maxDisplayAnswerLength = 14;
 let degrees = true; 
 let activeExpression = [];
 let prevAnswer = null;
@@ -108,8 +109,37 @@ function substituteAnsPlaceholder() {
 
 
 function displayAnswer(answer) {
+    let formattedAnswer = formatAnswer(answer);
     activeExpression = [];
-    upperScreen.textContent = answer;
+    upperScreen.textContent = formattedAnswer;
+}
+
+
+function formatAnswer(answer) {
+    let numAnswer = Number(answer);
+    let formattedAnswer;
+    let decimalPointIndex = answer.indexOf(".");
+    if (decimalPointIndex === -1) {
+        formattedAnswer = formatInteger(numAnswer);
+    } else if (decimalPointIndex === 0) {
+
+    } else {
+
+    }
+    return formattedAnswer;
+}
+
+
+function formatInteger(integer) {
+    const isNegative = (integer < 0) ? true : false;
+    let maxLength = (isNegative) ? maxDisplayAnswerLength + 1 : maxDisplayAnswerLength;
+    
+    if (integer.toString().length <= maxLength) {
+        return integer;
+    }
+
+    let expoInteger = integer.toExponential(7);
+    return expoInteger;
 }
 
 
@@ -569,6 +599,9 @@ function PostFixEval() {
     this.handleDivision = function(operandStack) {
         let rightSide = Number(operandStack.pop());
         let leftSide = Number(operandStack.pop());
+        if (isNaN(leftSide)) {
+            throw "Syntax error"
+        }
         if (rightSide === 0) {
             throw "Division by zero";
         }
