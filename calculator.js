@@ -167,7 +167,6 @@ function formatDecimal(answer) {
 
         decimalSide = "." + decimalSide;
         let numDecimalSide = Number(decimalSide);
-        let decimalSideLength = String(numDecimalSide).length - 2;
         let decimalPlaces = maxDisplayAnswerLength - intSideLength;
         numDecimalSide = Number(numDecimalSide.toFixed(decimalPlaces));
         
