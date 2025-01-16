@@ -149,7 +149,6 @@ function formatDecimal(answer) {
         
     } else {
         let intSideLength = intSide.length;
-        let decimalSideLength = decimalSide.length;
 
         if (intSideLength > maxDisplayAnswerLength) {
             const decimalPlaces = 7
@@ -157,13 +156,28 @@ function formatDecimal(answer) {
         } else if (intSideLength === maxDisplayAnswerLength) {
             intSide = Number(intSide);
             if (intSide.toString().length === maxDisplayAnswerLength) {
-                return intSide;
+                return Math.round(numAnswer);
             }
             intSide = new String(intSide);
             intSideLength = intSide.length
+        } else {
+            intSide = new String(Number(intSide));
+            intSideLength = intSide.length;
         }
 
-        //add logic for case where intside is less than max and not zero
+        decimalSide = "." + decimalSide;
+        let numDecimalSide = Number(decimalSide);
+        let decimalSideLength = String(numDecimalSide).length - 2;
+        let decimalPlaces = maxDisplayAnswerLength - intSideLength;
+        numDecimalSide = Number(numDecimalSide.toFixed(decimalPlaces));
+        
+        let finalNum = Number(intSide);
+        if (finalNum < 0) {
+            finalNum -= numDecimalSide;
+        } else {
+            finalNum += numDecimalSide;
+        }
+        return finalNum;
     }
 }
 
