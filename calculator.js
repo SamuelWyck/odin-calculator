@@ -202,12 +202,12 @@ function changeAngleUnits(element) {
     const btnType = element.dataset.type;
     if (btnType === "rad" && degrees) {
         degrees = false;
-        radBtn.classList.toggle("active-btn");
-        degBtn.classList.toggle("active-btn");
+        radBtn.classList.toggle("active-unit-btn");
+        degBtn.classList.toggle("active-unit-btn");
     } else if (btnType === "deg" && !degrees) {
         degrees = true;
-        radBtn.classList.toggle("active-btn");
-        degBtn.classList.toggle("active-btn");
+        radBtn.classList.toggle("active-unit-btn");
+        degBtn.classList.toggle("active-unit-btn");
     }
 }
 
