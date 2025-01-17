@@ -265,6 +265,9 @@ function appendFunction(element) {
         return;
     }
     if (topPeek === ")" || (!operators.has(topPeek) && !functions.has(topPeek))) {
+        if (topPeek === "-") {
+            activeExpression[activeExpression.length - 1] = "-1";
+        }
         insertImpliedMultiplication();
     }
     activeExpression.push(functionSymbol);
@@ -280,6 +283,9 @@ function appendParen(element) {
         }
         const topPeek = activeExpression[activeExpression.length - 1];
         if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
+            if (topPeek === "-") {
+                activeExpression[activeExpression.length - 1] = "-1";
+            }
             insertImpliedMultiplication();
         }
         activeExpression.push(parenSymbol);
