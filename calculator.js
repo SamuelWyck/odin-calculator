@@ -23,7 +23,6 @@ let postFixEval = new PostFixEval();
 
 btnDiv.addEventListener("click", function (e) {
     handleClickEvent(e);
-    // console.log(activeExpression)
 });
 
 
