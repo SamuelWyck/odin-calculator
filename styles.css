@@ -148,3 +148,7 @@ button {
 button:active {
     border-style: inset;
 }
+
+.shrink {
+    transform: scale(.90);
+}
