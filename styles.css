@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+body {
+    background-color: lightgray;
+}
+
 .debug {
     border: 1px solid black;
 }
@@ -18,13 +22,14 @@
 
 .calculator {
     padding: 30px;
-    background-color: aquamarine;
+    background-color: #1C3144;
+    border-radius: 20px;
 }
 
 .cal-screen {
     width: 448px;
     height: 150px;
-    background-color: white;
+    background-color: #C6D8D3;
     box-sizing: border-box;
     padding: 10px 20px;
     border-radius: 20px;
@@ -70,10 +75,33 @@
 
 .num-btn {
     font-weight: bold;
-    font-size: 26px;
+    font-size: 35px;
     border-radius: 20px;
 }
 
 .active-btn {
     background-color: red;
+}
+
+.operator, .negative, .equal-btn {
+    font-weight: bold;
+    font-size: 35px;
+    background-color: #FFBA08;
+    border-radius: 10px;
+}
+
+.exponent, .add, .divide, .equal-btn {
+    font-size: 45px;
+}
+
+.negative {
+    font-size: 50px;
+}
+
+.reset-btn, .del-btn {
+    background-color: #eb4741;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+    border-radius: 10px;
 }
