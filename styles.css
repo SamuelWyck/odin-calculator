@@ -76,12 +76,9 @@ body {
 .num-btn {
     font-weight: bold;
     font-size: 35px;
-    border-radius: 20px;
+    border-radius: 24px;
 }
 
-.active-btn {
-    background-color: red;
-}
 
 .operator, .negative, .equal-btn {
     font-weight: bold;
@@ -94,8 +91,13 @@ body {
     font-size: 45px;
 }
 
+.exponent {
+    padding-top: 9px;
+}
+
 .negative {
     font-size: 50px;
+    padding-bottom: 7px;
 }
 
 .reset-btn, .del-btn {
@@ -104,4 +106,29 @@ body {
     font-weight: bold;
     font-size: 28px;
     border-radius: 10px;
+}
+
+.func, .paren, .deg-btn, .rad-btn, .prev-answer-btn {
+    border-radius: 36px;
+    font-weight: bold;
+    font-size: 26px;
+    background-color: #817E9F;
+    color: white;
+}
+
+.paren {
+    font-size: 34px;
+    padding-bottom: 5px;
+}
+
+.paren-left {
+    padding-right: 5px;
+}
+
+.paren-right {
+    padding-left: 5px;
+}
+
+.active-btn {
+    color: #e6b742;
 }
