@@ -9,6 +9,7 @@ const maxDisplayAnswerLength = 14;
 let degrees = true; 
 let activeExpression = [];
 let prevAnswer = null;
+const prevAnswerSymbol = "ans";
 let operators = new Set(
     [" * ", " / ", " + ", " - ", " ^ "]
 );
@@ -104,7 +105,7 @@ function handleError(error) {
 function substituteAnsPlaceholder() {
     for (let i = 0; i < activeExpression.length; i += 1) {
         let currentSymbol = activeExpression[i];
-        if (currentSymbol === "Ans") {
+        if (currentSymbol === prevAnswerSymbol) {
             activeExpression[i] = prevAnswer;
         }
     }
@@ -218,7 +219,7 @@ function appendDigit(element) {
 
     } else {
         const topPeek = activeExpression[activeExpression.length - 1];
-        if (topPeek === ")" || topPeek === "Ans") {
+        if (topPeek === ")" || topPeek === prevAnswerSymbol) {
             insertImpliedMultiplication();
             activeExpression.push(digit);
         } else if (operators.has(topPeek) || functions.has(topPeek) || topPeek === "(") {
@@ -320,14 +321,17 @@ function appendPrevAnswer() {
         return false;
     }
     if (activeExpression.length === 0) {
-        activeExpression.push("Ans");
+        activeExpression.push(prevAnswerSymbol);
         return true;
     }
     const topPeek = activeExpression[activeExpression.length - 1];
     if (topPeek !== "(" && !operators.has(topPeek) && !functions.has(topPeek)) {
+        if (topPeek === "-") {
+            activeExpression[activeExpression.length - 1] = "-1";
+        }
         insertImpliedMultiplication();
     }
-    activeExpression.push("Ans");
+    activeExpression.push(prevAnswerSymbol);
     return true;
 }
 
@@ -354,7 +358,7 @@ function updateScreen(clearUpper=true) {
     } else {
         readableString = "0";
     }
-    if (readableString.length > 12) {//might get rid of this
+    if (readableString.length > 12) {
         let maxLength = readableString.length;
         let startIdx = maxLength - 12;
         readableString = readableString.slice(startIdx);
@@ -370,7 +374,7 @@ function parseSymbol(symbol) {
     if (symbol === " * ") {
         symbol = "x";
     } else if (symbol.length === 3) {
-        symbol = symbol[1]; //might leave spaces with operators 
+        symbol = symbol[1];
     } else {
         if (symbol === "L") {
             symbol = "log(";
