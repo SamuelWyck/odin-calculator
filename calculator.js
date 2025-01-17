@@ -188,7 +188,6 @@ function formatDecimal(answer) {
 
 function formatInteger(answer) {
     let integer = Number(answer);
-    console.log(integer);
     if (integer.toString().length <= maxDisplayAnswerLength) {
         return integer;
     }
