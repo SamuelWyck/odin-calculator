@@ -119,6 +119,9 @@ function displayAnswer(answer) {
 
 
 function formatAnswer(answer) {
+    if (answer.indexOf("e") !== -1) {
+        return Number(answer).toExponential(7);
+    }
     let formattedAnswer;
     let decimalPointIndex = answer.indexOf(".");
     if (decimalPointIndex === -1) {
