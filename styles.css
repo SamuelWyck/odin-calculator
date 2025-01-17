@@ -24,7 +24,8 @@ body {
     padding: 30px;
     background-color: #1C3144;
     border-radius: 20px;
-    box-shadow: 4px 4px 10px 4px gray;
+    box-shadow: 6px 6px 10px 4px gray;
+    border: 4px outset #1C3144;
 }
 
 .cal-screen {
