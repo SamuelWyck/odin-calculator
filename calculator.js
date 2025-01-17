@@ -567,6 +567,10 @@ function PostFixEval() {
 
     this.handleCosine = function(operandStack) {
         let angle = Number(operandStack.pop());
+        if (this.degrees && angle === 90) {
+            operandStack.push(0);
+            return;
+        }
         if (this.degrees) {
             angle = this.toRadians(angle);
         }
