@@ -79,6 +79,8 @@ function calculateExpression() {
         let answer = String(answerArray[0]);
         if (isNaN(answer)) {
             throw "Syntax error";
+        } else if (!isFinite(answer)) {
+            throw "Overflow error";
         }
         prevAnswer = answer;
         displayAnswer(answer);
