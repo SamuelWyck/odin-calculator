@@ -13,7 +13,6 @@ body {
 }
 
 .main-container {
-    margin-top: 20px;
     display: flex;
     height: 90vh;
     justify-content: center;
