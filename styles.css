@@ -13,8 +13,9 @@ body {
 }
 
 .main-container {
+    margin-top: 25px;
     display: flex;
-    height: 90vh;
+    height: 0vh;
     justify-content: center;
     align-items: flex-start;
 }
