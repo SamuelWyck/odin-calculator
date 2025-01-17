@@ -36,6 +36,7 @@ body {
     font-size: 60px;
     font-weight: 600;
     overflow: hidden;
+    box-shadow: 1px 1px 5px 4px #606d69 inset;
 }
 
 .upper-screen {
