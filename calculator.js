@@ -264,7 +264,7 @@ function appendFunction(element) {
         activeExpression.push(functionSymbol);
         return;
     }
-    if (topPeek === ")" || (!operators.has(topPeek) && !functions.has(topPeek))) {
+    if (topPeek === ")" || (!operators.has(topPeek) && !functions.has(topPeek) && topPeek !== "(")) {
         if (topPeek === "-") {
             activeExpression[activeExpression.length - 1] = "-1";
         }
