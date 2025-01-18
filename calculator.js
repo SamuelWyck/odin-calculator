@@ -301,7 +301,7 @@ function popSymbol() {
     }
 
     let topSymbol = activeExpression.pop();
-    if (!operators.has(topSymbol) && topSymbol.length > 1 && topSymbol !== "Ans") {
+    if (!operators.has(topSymbol) && topSymbol.length > 1 && topSymbol !== prevAnswerSymbol) {
         topSymbol = topSymbol.slice(0, topSymbol.length - 1);
         if (topSymbol.length > 0) {
             activeExpression.push(topSymbol);
